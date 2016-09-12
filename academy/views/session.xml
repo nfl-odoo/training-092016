@@ -1,0 +1,54 @@
+<openerp>
+  <data>
+    <record model="ir.actions.act_window" id="action_session">
+        <field name="name">Session</field>
+        <field name="res_model">academy.session</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_session"
+        name="Session"
+        parent="menu_academy"
+        action="action_session"/>
+
+
+    <record model="ir.ui.view" id="view_session_tree">
+        <field name="name">Session</field>
+        <field name="model">academy.session</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="course_id"/>
+                <field name="instructor_id"/>
+                <field name="start_date"/>
+                <field name="duration"/>
+                <field name="number_of_seat"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_session_form">
+        <field name="name">Session</field>
+        <field name="model">academy.session</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="number_of_seat"/>
+                            <field name="instructor_id"/>
+                            <field name="course_id"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="duration"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+  </data>
+</openerp>

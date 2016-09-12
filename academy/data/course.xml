@@ -1,0 +1,44 @@
+<openerp>
+    <data>
+        <record model="academy.course" id="academy_course_math">
+            <field name="title">Math</field>
+            <field name="desc">Math Course 101</field>
+        </record>
+
+        <record model="academy.course" id="academy_course_french">
+            <field name="title">French</field>
+            <field name="desc">French Course 101</field>
+        </record>
+
+        <record model="academy.course" id="academy_course_geo">
+            <field name="title">Geo</field>
+            <field name="desc">Geo Course 101</field>
+        </record>
+        <!--  -->
+        <!--   <record id="object0" model="academy.academy"> -->
+        <!--     <field name="name">Object 0</field> -->
+        <!--     <field name="value">0</field> -->
+        <!--   </record> -->
+        <!--  -->
+        <!--   <record id="object1" model="academy.academy"> -->
+        <!--     <field name="name">Object 1</field> -->
+        <!--     <field name="value">10</field> -->
+        <!--   </record> -->
+        <!--  -->
+        <!--   <record id="object2" model="academy.academy"> -->
+        <!--     <field name="name">Object 2</field> -->
+        <!--     <field name="value">20</field> -->
+        <!--   </record> -->
+        <!--  -->
+        <!--   <record id="object3" model="academy.academy"> -->
+        <!--     <field name="name">Object 3</field> -->
+        <!--     <field name="value">30</field> -->
+        <!--   </record> -->
+        <!--  -->
+        <!--   <record id="object4" model="academy.academy"> -->
+        <!--     <field name="name">Object 4</field> -->
+        <!--     <field name="value">40</field> -->
+        <!--   </record> -->
+        <!--  -->
+    </data>
+</openerp>
