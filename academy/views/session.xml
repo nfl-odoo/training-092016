@@ -46,6 +46,11 @@
                             <field name="duration"/>
                         </group>
                     </group>
+                    <notebook>
+                        <page string="Attendees">
+                            <field name="attendee_ids"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
