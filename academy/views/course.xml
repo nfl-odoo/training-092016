@@ -4,6 +4,9 @@
         <field name="name">Course</field>
         <field name="res_model">academy.course</field>
         <field name="view_mode">tree,form</field>
+        <field name="context" eval="{
+            'search_default_my_course': 1,
+            }"/>
     </record>
 
     <menuitem
@@ -21,14 +24,28 @@
         name="Course"
         parent="menu_academy"
         action="action_course"/>
-<!--
-    <record model="ir.ui.view" id="view_course_tree">
-        <field name="name">Courses</field>
-        <field name="mode">academy.course</field>
-        <field name="arch" type="xml">
 
+    <record model="ir.ui.view" id="view_course_search">
+        <field name="name">Courses</field>
+        <field name="model">academy.course</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="title"/>
+                <field name="desc"/>
+                <field name="resp_id"/>
+                <filter
+                    name="my_course"
+                    string="My Courses"
+                    domain="[('resp_id', '=', uid)]"/>
+                <group string="Group by">
+                    <filter
+                        name="by_resp"
+                        string="Responsible"
+                        context="{'group_by': 'resp_id'}"/>
+                </group>
+            </search>
         </field>
-    </record> -->
+    </record>
 
     <record model="ir.ui.view" id="view_course_tree">
         <field name="name">Courses</field>
@@ -71,6 +88,7 @@
                                     <field name="name"/>
                                     <field name="instructor_id"/>
                                     <field name="start_date"/>
+                                    <field name="end_date"/>
                                     <field name="duration"/>
                                     <field name="number_of_seat"/>
                                 </tree>
@@ -84,6 +102,7 @@
                                         </group>
                                         <group>
                                             <field name="start_date"/>
+                                            <field name="end_date"/>
                                             <field name="duration"/>
                                         </group>
                                     </group>
@@ -95,5 +114,6 @@
             </form>
         </field>
     </record>
+
   </data>
 </openerp>

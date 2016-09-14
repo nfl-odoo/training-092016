@@ -3,7 +3,7 @@
     <record model="ir.actions.act_window" id="action_session">
         <field name="name">Session</field>
         <field name="res_model">academy.session</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,calendar,pivot,graph,kanban</field>
     </record>
 
     <menuitem
@@ -12,6 +12,27 @@
         parent="menu_academy"
         action="action_session"/>
 
+    <record model="ir.ui.view" id="view_session_search">
+        <field name="name">sessions</field>
+        <field name="model">academy.session</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- <field name="title"/> -->
+                <!-- <field name="desc"/> -->
+                <field name="instructor_id"/>
+                <filter
+                    name="my_session"
+                    string="My sessions"
+                    domain="[('instructor_user_id', '=', uid)]"/>
+                <group string="Group by">
+                    <filter
+                        name="by_resp"
+                        string="Responsible"
+                        context="{'group_by': 'instructor_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
 
     <record model="ir.ui.view" id="view_session_tree">
         <field name="name">Session</field>
@@ -19,11 +40,16 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
-                <field name="course_id"/>
-                <field name="instructor_id"/>
-                <field name="start_date"/>
-                <field name="duration"/>
                 <field name="number_of_seat"/>
+                <field name="instructor_id"/>
+                <field name="instructor_user_id"/>
+                <field name="course_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="duration"/>
+                <field name="percentage_per_day"/>
+                <field name="number_attendee"/>
+                <field name="taken_seat" readonly="1" widget="progressbar"/>
             </tree>
         </field>
     </record>
@@ -33,6 +59,24 @@
         <field name="model">academy.session</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button
+                        string="Reset to Draft"
+                        name="set2draft"
+                        type="object"
+                        states="confirm,done"/>
+                    <button
+                        string="Confirm"
+                        name="set2confirm"
+                        type="object"
+                        states="draft"/>
+                    <button
+                        string="Done"
+                        name="set2done"
+                        type="object"
+                        states="confirm"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
                 <sheet>
                     <group>
                         <group>
@@ -40,10 +84,14 @@
                             <field name="number_of_seat"/>
                             <field name="instructor_id"/>
                             <field name="course_id"/>
+                            <field name="percentage_per_day"/>
                         </group>
                         <group>
                             <field name="start_date"/>
+                            <field name="end_date"/>
                             <field name="duration"/>
+                            <field name="taken_seat" readonly="1" widget="progressbar"/>
+                            <field name="number_attendee"/>
                         </group>
                     </group>
                     <notebook>
@@ -53,6 +101,110 @@
                     </notebook>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_session_calendar">
+        <field name="name">Session</field>
+        <field name="model">academy.session</field>
+        <field name="arch" type="xml">
+            <calendar
+                    string="Session Calendar"
+                    date_start="start_date"
+                    date_stop="end_date"
+                    color="course_id">
+                <field name="name"/>
+                <field name="taken_seat"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_course_graph">
+        <field name="name">Sessions</field>
+        <field name="model">academy.session</field>
+        <field name="arch" type="xml">
+            <graph string="Participations by Courses" type="pie">
+                <field name="course_id"/>
+                <field name="number_attendee" type="mesure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_course_pivot">
+        <field name="name">Sessions</field>
+        <field name="model">academy.session</field>
+        <field name="arch" type="xml">
+            <pivot string="Participations by Courses">
+                <field name="course_id"/>
+                <field name="number_attendee" type="mesure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_course_gantt">
+        <field name="name">Sessions</field>
+        <field name="model">academy.session</field>
+        <field name="arch" type="xml">
+            <gantt
+                type="consolidate"
+                date_start="start_date"
+                date_Stop="end_date"
+                fold_last_level="true"
+                round_dnd_dates="true"
+                consolidation="percentage_per_day"
+                consolidation_max="{'instructor_id': 100}"
+                consilidation_exclude="exclude"
+                >
+            </gantt>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_course_kanban">
+        <field name="name">Sessions</field>
+        <field name="model">academy.session</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="course_id">
+                <field name="color"/>
+                <field name="attendee_ids" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_color_{{kanban_getcolor(record.color.raw_value)}} oe_kanban_global_click_edit
+                            oe_semantic_html_override oe_kanban_card {{record.group_fancy==1
+                            ? 'oe_kanban_card_fancy' : ''}}">
+                             <div class="o_dropdown_kanban dropdown" groups="base.group_user">
+                                <a class="dropdown-toggle btn" data-toggle="dropdown" href="#">
+                                    <span class="fa fa-bars fa-lg"/>
+                                </a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                    <t t-if="widget.editable"><li><a type="edit">Edit Session</a></li></t>
+                                    <t t-if="widget.deletable"><li><a type="delete">Delete</a></li></t>
+                                    <li><ul class="oe_kanban_colorpicker" data-field="color"/></li>
+                                </ul>
+                            </div>
+                            <div t-attf-class="oe_kanban_content">
+                                <!-- title -->
+                                Session name:
+                                <field name="name"/>
+                                <br/>
+                                Start date:
+                                <field name="start_date"/>
+                                <br/>
+                                duration:
+                                <field name="duration"/>
+                            </div>
+
+                            <div class="oe_kanban_project_avatars">
+                                <t t-foreach="record.attendee_ids.raw_value.slice(0,11)"
+                                    t-as="attendee">
+                                   <img
+                                   t-att-src="kanban_image('res.partner', 'image_small', attendee)"
+                                   t-att-data-member_id="attendee" style="width:30px"/>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
   </data>
