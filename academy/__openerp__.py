@@ -32,6 +32,7 @@
         'views/course.xml',
         'views/session.xml',
         'views/partner.xml',
+        'workflow/session.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

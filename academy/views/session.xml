@@ -62,18 +62,18 @@
                 <header>
                     <button
                         string="Reset to Draft"
-                        name="set2draft"
-                        type="object"
+                        name="draft"
+                        type="workflow"
                         states="confirm,done"/>
                     <button
                         string="Confirm"
-                        name="set2confirm"
-                        type="object"
+                        name="confirm"
+                        type="workflow"
                         states="draft"/>
                     <button
                         string="Done"
-                        name="set2done"
-                        type="object"
+                        name="done"
+                        type="workflow"
                         states="confirm"/>
                     <field name="state" widget="statusbar"/>
                 </header>

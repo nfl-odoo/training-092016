@@ -116,3 +116,24 @@ class Session(models.Model):
     @api.one
     def set2done(self):
         self.state = 'done'
+
+    # def auto_confirm(self):
+    #     if self.taken_seat > 50 and self.state == 'draft':
+    #         self.state = 'confirm'
+
+    # def auto_confirm_vals(self, vals):
+    #     if vals.get('taken_seat') > 50 and self.state == 'draft':
+    #         vals.update({
+    #             'state': 'confirm'
+    #             })
+    #     return vals
+
+    # @api.one
+    # def write(self, vals):
+    #     new_vals = self.auto_confirm_vals(vals)
+    #     return super(Session, self).write(new_vals)
+
+    # @api.model
+    # def create(self, vals):
+    #     new_vals = self.auto_confirm_vals(vals)
+    #     return super(Session, self).create(vals)
