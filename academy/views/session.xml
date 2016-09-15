@@ -64,17 +64,20 @@
                         string="Reset to Draft"
                         name="draft"
                         type="workflow"
-                        states="confirm,done"/>
+                        states="confirm,done"
+                        groups="academy.group_manager,base.group_no_one"/>
                     <button
                         string="Confirm"
                         name="confirm"
                         type="workflow"
-                        states="draft"/>
+                        states="draft"
+                        groups="academy.group_manager,base.group_no_one"/>
                     <button
                         string="Done"
                         name="done"
                         type="workflow"
-                        states="confirm"/>
+                        states="confirm"
+                        groups="academy.group_manager,base.group_no_one"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -96,7 +99,14 @@
                     </group>
                     <notebook>
                         <page string="Attendees">
-                            <field name="attendee_ids"/>
+                            <group>
+                                <group>
+                                    <field name="number_attendee"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                            <field name="attendee_ids" groups="academy.group_manager,base.group_no_one"/>
                         </page>
                     </notebook>
                 </sheet>
@@ -119,7 +129,7 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="view_course_graph">
+    <record model="ir.ui.view" id="view_session_graph">
         <field name="name">Sessions</field>
         <field name="model">academy.session</field>
         <field name="arch" type="xml">
@@ -130,7 +140,7 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="view_course_pivot">
+    <record model="ir.ui.view" id="view_session_pivot">
         <field name="name">Sessions</field>
         <field name="model">academy.session</field>
         <field name="arch" type="xml">
@@ -141,7 +151,7 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="view_course_gantt">
+    <record model="ir.ui.view" id="view_session_gantt">
         <field name="name">Sessions</field>
         <field name="model">academy.session</field>
         <field name="arch" type="xml">
@@ -159,7 +169,7 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="view_course_kanban">
+    <record model="ir.ui.view" id="view_session_kanban">
         <field name="name">Sessions</field>
         <field name="model">academy.session</field>
         <field name="arch" type="xml">

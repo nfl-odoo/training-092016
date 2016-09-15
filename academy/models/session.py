@@ -137,3 +137,4 @@ class Session(models.Model):
     # def create(self, vals):
     #     new_vals = self.auto_confirm_vals(vals)
     #     return super(Session, self).create(vals)
+

@@ -23,16 +23,26 @@
     'depends': [
         'base',
         'crm',
+        'board',
     ],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'data/course.xml',
+
         'views/course.xml',
         'views/session.xml',
         'views/partner.xml',
+        'views/session_populate.xml',
+
         'workflow/session.xml',
+
+        'reports/session.xml',
+        'reports/board.xml',
+
+        'security/security.xml',
+        'security/ir.model.access.csv',
     ],
     # only loaded in demonstration mode
     'demo': [
