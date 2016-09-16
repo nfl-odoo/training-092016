@@ -24,6 +24,7 @@
         'base',
         'crm',
         'board',
+        'website',
     ],
 
     # always loaded
@@ -40,6 +41,9 @@
 
         'reports/session.xml',
         'reports/board.xml',
+
+        'templates/session.xml',
+        'templates/course.xml',
 
         'security/security.xml',
         'security/ir.model.access.csv',

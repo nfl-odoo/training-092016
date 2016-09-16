@@ -1,0 +1,13 @@
+<openerp>
+    <data>
+        <template id="template_session">
+            <t t-call="website.layout">
+                <title>Session</title>
+                    <p>Session: <span t-field="session.name"/> (<t t-esc="session.start_date"/>)</p>
+                    <ul><t t-as="partner" t-foreach="session.attendee_ids">
+                            <li><t t-esc="partner.name"/></li>
+                    </t></ul>
+            </t>
+        </template>
+    </data>
+</openerp>

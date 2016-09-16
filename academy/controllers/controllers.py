@@ -1,10 +1,21 @@
 # -*- coding: utf-8 -*-
 from openerp import http
 
-# class Academy(http.Controller):
-#     @http.route('/academy/academy/', auth='public')
-#     def index(self, **kw):
-#         return "Hello, world"
+class Academy(http.Controller):
+    @http.route('/academy/session/<model("academy.session"):session>/', auth='public', website=True)
+    def session(self, session):
+        return http.request.render('academy.template_session', {
+            'session': session,
+            })
+
+    @http.route('/academy/course/<model("academy.course"):course>/', auth='public', website=True)
+    def course(self, course):
+        sessions = course.session_ids
+        total_attendee = sum([session.number_attendee for session in sessions])
+        return http.request.render('academy.template_course', {
+            'course': course,
+            'total_attendee': total_attendee,
+            })
 
 #     @http.route('/academy/academy/objects/', auth='public')
 #     def list(self, **kw):

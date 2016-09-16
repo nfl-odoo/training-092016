@@ -5,3 +5,6 @@ access_academy_course_read,Academy Course Read,model_academy_course,group_user,1
 
 access_academy_session_full,Academy Session Full,model_academy_session,group_manager,1,1,1,1
 access_academy_course_full,Academy Course Full,model_academy_course,group_manager,1,1,1,1
+
+access_academy_session_public_read,Academy Session Public Read,model_academy_session,,1,0,0,0
+access_academy_course_public_read,Academy Course Public Read,model_academy_course,,1,0,0,0

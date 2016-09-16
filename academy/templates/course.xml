@@ -1,0 +1,14 @@
+<openerp>
+    <data>
+        <template id="template_course">
+            <t t-call="website.layout">
+                <title>Course</title>
+                <p>Course: <t t-esc="course.title"/></p>
+                <p>Number of Attendees: <t t-esc="total_attendee"/></p>
+                <t t-as="session" t-foreach="course.session_ids">
+                    <p><a t-attf-href="/academy/session/{{ slug(session) }}"><t t-esc="session.name"/></a></p>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>
