@@ -51,7 +51,7 @@
     <record model="workflow.transition" id="session_auto_confirm_half_filled">
         <field name="act_from" ref="draft"/>
         <field name="act_to" ref="confirmed"/>
-        <field name="condition">taken_seats &gt; 50</field>
+        <field name="condition">taken_seat &gt; 50</field>
     </record>
 
   </data>

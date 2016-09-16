@@ -6,8 +6,7 @@
             <field name="res_model">academy.session</field>
             <field name="view_type">form</field>
             <field name="view_mode">graph</field>
-            <field name="view_id"
-                   ref="academy.view_session_graph"/>
+            <field name="view_id" ref="academy.view_session_graph"/>
         </record>
         <record model="ir.actions.act_window" id="act_session_calendar">
             <field name="name">Sessions</field>

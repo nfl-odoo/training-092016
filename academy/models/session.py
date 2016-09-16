@@ -34,7 +34,7 @@ class Session(models.Model):
         string='Partners',
         )
     number_attendee = fields.Integer(compute='_get_number_attendee', string='Number of Attendees', store=True)
-    taken_seat = fields.Float(compute='_get_taken_seat', string='Percentage Seats Taken')
+    taken_seat = fields.Float(compute='_get_taken_seat', string='Percentage Seats Taken', store=True)
     percentage_per_day = fields.Integer("Percentage per day", default=100)
     color = fields.Integer(string="Color")
     state = fields.Selection([
